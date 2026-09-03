@@ -30,10 +30,15 @@ Primary repeated internal validation uses 5 outer folds × 10 repeats with parti
 
 ## Authoritative computational lineage
 
-The repository intentionally retains historical notebook variants for auditability. Do not infer authority from filename order alone. The final lineage and supersession map are in [`docs/ANALYSIS_LINEAGE.md`](docs/ANALYSIS_LINEAGE.md), and the notebook-oriented execution map is in [`notebooks/README.md`](notebooks/README.md).
+The repository intentionally retains development and superseded notebook
+variants for auditability. Do not infer authority from filename order alone.
+The final lineage and supersession map are in
+[`docs/ANALYSIS_LINEAGE.md`](docs/ANALYSIS_LINEAGE.md), and the notebook-oriented
+execution map is in [`notebooks/README.md`](notebooks/README.md).
 
 A post-freeze provenance correction adds
-`notebooks/35_goal3_stage_e_controlled_perturbation_final_v1_1_1.ipynb`. This is
+`notebooks/35_goal3_stage_e_controlled_perturbation_final_v1_1_1_2000_bootstraps.ipynb`.
+This is
 the final Stage-E completion patch used to create the retained
 prediction-unavailability audit. Relative to v1.1.0, it fixes one
 support-summary reduction and adds explicit baseline-gated
@@ -80,7 +85,7 @@ validation levels, their prerequisites, and the limits of what each establishes.
 | `configs/` | Frozen analysis configuration and expected cohort counts |
 | `data/` | Governed-input layout placeholders; no participant data are public |
 | `docs/` | Lineage, runtime provenance, frozen-output audit, and reproduction guide |
-| `notebooks/` | Authoritative analyses plus explicitly retained historical variants |
+| `notebooks/` | Final analyses plus explicitly labeled development and superseded variants |
 | `src/paper2/` | Package namespace for reusable, scientifically validated code |
 | `tests/` | Fast structural and verifier unit tests that require no governed data |
 | `tools/` | Standalone frozen-output verification utility |

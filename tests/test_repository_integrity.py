@@ -29,6 +29,21 @@ def test_notebook_names_follow_publication_convention() -> None:
     invalid = [notebook.name for notebook in notebooks if not pattern.fullmatch(notebook.name)]
     assert not invalid, f"Nonconforming notebook names: {invalid}"
     assert len(notebooks) == 25
+    assert not [notebook.name for notebook in notebooks if "historical" in notebook.name]
+
+
+def test_development_and_final_bootstrap_labels_match_saved_runs() -> None:
+    expected = {
+        "10_goal1_primary_analysis_development_v1_1_300_bootstraps.ipynb": 300,
+        "10_goal1_primary_analysis_final_v1_1_2000_bootstraps.ipynb": 2000,
+        "20_goal2_primary_inference_development_v1_1_300_bootstraps.ipynb": 300,
+        "20_goal2_primary_inference_final_v1_1_2000_bootstraps.ipynb": 2000,
+    }
+
+    for filename, replicates in expected.items():
+        notebook = ROOT / "notebooks" / filename
+        payload = notebook.read_text(encoding="utf-8")
+        assert f"Bootstrap replicates: {replicates}\\n" in payload, filename
 
 
 def test_yaml_files_parse() -> None:

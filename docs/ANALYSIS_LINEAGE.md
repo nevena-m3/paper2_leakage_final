@@ -17,7 +17,7 @@ completion manifest records its SHA-256 as:
 
 The diagnosis permutation correction is implemented in `goal1_diagnosis_permutation_corrected_v1_1.py`: diagnosis stratification is regenerated after each participant-level label permutation. The historical fixed-label-stratified diagnosis null is not used in the final inference.
 
-Final downstream notebooks are `10b_goal1_sensitivity_completion_v1_0.ipynb`,
+Final downstream notebooks are `10b_goal1_sensitivity_completion_final_v1_0.ipynb`,
 `10c_goal1_publication_figures_final_v1_2.ipynb`, and
 `10d_goal1_final_freeze_v1_0.ipynb`. Goal-1 final uncertainty uses 2,000
 participant bootstrap replicates; formal permutation inference uses 1,000
@@ -27,8 +27,8 @@ permutations per task and reports the minimum attainable empirical p-value of
 ## Goal 2
 
 The final A-extraction/freeze path is
-`18_goal2_bamboo_acoustic_feature_extraction_v2_1.ipynb` followed by
-`19_goal2_bamboo_acoustic_representation_freeze_v2_1.ipynb`.
+`18_goal2_bamboo_acoustic_feature_extraction_final_v2_1.ipynb` followed by
+`19_goal2_bamboo_acoustic_representation_freeze_final_v2_1.ipynb`.
 
 The primary inference path is
 `20_goal2_primary_inference_final_v1_1_2000_bootstraps.ipynb`, followed by
@@ -37,21 +37,21 @@ contains the authoritative correction requiring fold-local tuning of the A-on-Q
 residualizer inside the outer-training data. Earlier fixed-residualizer outputs
 are historical and are not manuscript authority.
 
-`22_goal2_publication_figures_and_freeze_v1_2.ipynb` creates the final figure
+`22_goal2_publication_figures_and_freeze_final_v1_2.ipynb` creates the final figure
 package and final DONE seal from the authoritative completion outputs. The final
 frozen models are `M_A`, `M_A+Q`, and `M_A-resQ`.
 
 ## Goal 3
 
-Stage A: `30_goal3_stage_a_natural_qa_localization_and_freeze_v1_1.ipynb`.
+Stage A: `30_goal3_stage_a_natural_qa_localization_and_freeze_final_v1_1.ipynb`.
 
-Stage B: `31_goal3_stage_b_perturbation_calibration_prepare_v1_0.ipynb`,
-`32_goal3_stage_b_perturbation_calibration_execute_v1_1.ipynb`, then the
+Stage B: `31_goal3_stage_b_perturbation_calibration_prepare_final_v1_0.ipynb`,
+`32_goal3_stage_b_perturbation_calibration_execute_final_v1_1.ipynb`, then the
 outcome-blind targeted revisions `goal3_stageB_v1_2_targeted_revision.py` and
 `goal3_stageB_v1_3_targeted_revision.py`. The final Stage-B perturbation manifest
 is immutable before clinical prediction inspection.
 
-Stage C: `33_goal3_stage_c_qa_measurement_preflight_v1_0_2.ipynb`. This
+Stage C: `33_goal3_stage_c_qa_measurement_preflight_final_v1_0_2.ipynb`. This
 separates the frozen-segmentation A-implementation reproduction gate from the
 fresh-resegmentation audit used by the controlled experiment.
 
@@ -60,10 +60,12 @@ fold-specific frozen Goal-2 model bundles are sealed only after exact repeat-1
 OOF reproduction.
 
 Stage E: the heavy controlled run was executed with
-`35_goal3_stage_e_controlled_perturbation_historical_v1_1_0.ipynb`, producing
+`35_goal3_stage_e_controlled_perturbation_checkpoint_execution_v1_1_0_2000_bootstraps.ipynb`,
+producing
 deterministic checkpoints for all 14,792 source/variant rows. A later targeted
 completion patch,
-`35_goal3_stage_e_controlled_perturbation_final_v1_1_1.ipynb`, reused those
+`35_goal3_stage_e_controlled_perturbation_final_v1_1_1_2000_bootstraps.ipynb`,
+reused those
 checkpoints and made two non-estimand changes: it corrected a
 support/failure-summary reduction from a Series to a scalar count, and it added
 explicit baseline-gated prediction-unavailability audit tables. No waveform
@@ -71,8 +73,9 @@ measurement, perturbation dose, frozen model state, prediction rule, or
 inferential estimand changed. v1.1.1 is therefore the authoritative Stage-E
 notebook for release provenance.
 
-Stage F/completion: `36_goal3_stage_f_robustness_and_completion_v1_0.ipynb`, then
-`37_goal3_stage_f_publication_figures_v1_0.ipynb` and manual visual approval of
+Stage F/completion:
+`36_goal3_stage_f_robustness_and_completion_final_v1_0.ipynb`, then
+`37_goal3_stage_f_publication_figures_final_v1_0.ipynb` and manual visual approval of
 the versioned review figures. The approved versions were:
 
 - Figure 5: `Figure5_Goal3_QA_localization_V2_REVIEW`
