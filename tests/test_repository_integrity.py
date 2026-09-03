@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+import re
 
 import yaml
 
@@ -19,6 +20,15 @@ def test_notebooks_are_valid_json() -> None:
         payload = json.loads(notebook.read_text(encoding="utf-8"))
         assert payload.get("nbformat") == 4, notebook
         assert isinstance(payload.get("cells"), list), notebook
+
+
+def test_notebook_names_follow_publication_convention() -> None:
+    notebooks = sorted((ROOT / "notebooks").glob("*.ipynb"))
+    pattern = re.compile(r"^\d{2}[a-z]?_[a-z0-9]+(?:_[a-z0-9]+)*\.ipynb$")
+
+    invalid = [notebook.name for notebook in notebooks if not pattern.fullmatch(notebook.name)]
+    assert not invalid, f"Nonconforming notebook names: {invalid}"
+    assert len(notebooks) == 25
 
 
 def test_yaml_files_parse() -> None:

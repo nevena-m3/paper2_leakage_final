@@ -32,7 +32,16 @@ Primary repeated internal validation uses 5 outer folds × 10 repeats with parti
 
 The repository intentionally retains historical notebook variants for auditability. Do not infer authority from filename order alone. The final lineage and supersession map are in [`docs/ANALYSIS_LINEAGE.md`](docs/ANALYSIS_LINEAGE.md), and the notebook-oriented execution map is in [`notebooks/README.md`](notebooks/README.md).
 
-A post-freeze provenance correction adds `notebooks/35_goal3_controlled_perturbation_PRIMARY_FINAL_v1_1_1.ipynb`. This is the final Stage-E completion patch used to create the retained prediction-unavailability audit. Relative to v1.1.0, it fixes one support-summary reduction and adds explicit baseline-gated prediction-unavailability tables; it does not rerun or change the 14,792 waveform measurements, frozen perturbation doses, model states, prediction rules, or inferential estimands.
+A post-freeze provenance correction adds
+`notebooks/35_goal3_stage_e_controlled_perturbation_final_v1_1_1.ipynb`. This is
+the final Stage-E completion patch used to create the retained
+prediction-unavailability audit. Relative to v1.1.0, it fixes one
+support-summary reduction and adds explicit baseline-gated
+prediction-unavailability tables; it does not rerun or change the 14,792
+waveform measurements, frozen perturbation doses, model states, prediction
+rules, or inferential estimands. Notebook paths were later standardized; the
+only internal edits update filename literals needed for notebook discovery. See
+[`docs/NOTEBOOK_NAMING.md`](docs/NOTEBOOK_NAMING.md) for the rename record.
 
 ## Data and external dependencies
 

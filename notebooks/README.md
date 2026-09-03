@@ -1,51 +1,123 @@
-# Notebooks
+# Notebook execution guide
 
-This directory deliberately retains both historical and authoritative notebook variants. Use the lineage below rather than choosing the numerically latest-looking filename.
+This directory retains both authoritative notebooks and historical variants for
+auditability. Run only the authoritative path below unless you are explicitly
+reconstructing development history.
 
-## Phase 0
+## Naming convention
 
-1. `00_phase0_data_audit.ipynb` — canonical data audit, participant/recording tables, severity matching, and split manifest.
-2. `01_phase0_qchan_reference_cache.ipynb` — fold-safe QCHAN reference cache.
+Notebook filenames use lowercase ASCII `snake_case`:
 
-## Goal 1 — information availability
+```text
+<number>_<goal-or-phase>_[stage]_<purpose>_[authority]_[version].ipynb
+```
 
-Authoritative/final path:
+- `number` preserves the established scientific execution identifier.
+- `stage` is included for the staged Goal-3 workflow.
+- `historical` and `final` distinguish variants with the same identifier.
+- versions use `v1_0`, `v1_0_1`, and similar filename-safe notation.
+- `qa` means the joint recording-quality/acoustic representation `Q+A`.
+- `qchan` means the channel-related recording-quality component.
 
-1. `10_goal1_COMPLETE_REBUILT_v1_1_final2000BS.ipynb` — authoritative final primary analysis; its SHA-256 is recorded in the Goal-1 completion manifest.
-2. `goal1_diagnosis_permutation_corrected_v1_1.py` — corrected diagnosis permutation procedure; stratification is regenerated after label permutation.
-3. `10A_goal1_recover_bootstrap_and_figures.ipynb` — governed recovery/post-processing from saved final outputs where needed.
-4. `10B_goal1_FINALIZE_sensitivities_figures_v1_0.ipynb` — prespecified sensitivities and computational completion package.
-5. `10C_goal1_PUBLICATION_figures_FINAL_v1_2.ipynb` — final publication figure package.
-6. `10D_goal1_FINAL_FREEZE_v1_0.ipynb` — final Goal-1 freeze and DONE seal.
+The cleanup changed filenames and the internal filename literals required to
+keep notebook-to-notebook provenance lookups working. It did not change any
+analysis, parameter, model, estimand, result, or stored output. The complete
+old-to-new map is in
+[`../docs/NOTEBOOK_NAMING.md`](../docs/NOTEBOOK_NAMING.md).
 
-`10_goal1_COMPLETE_REBUILT_v1_1.ipynb` and earlier figure variants are retained as historical development provenance and are not the manuscript authority.
+## Authoritative execution order
 
-## Goal 2 — consequence for acoustic inference
+### Phase 0 — governed data freeze
 
-Authoritative/final path:
+1. `00_phase0_data_audit_and_freeze.ipynb` — audit source data; construct the
+   canonical participant and recording ledgers, severity matches, and grouped
+   split manifest.
+2. `01_phase0_qchan_reference_cache.ipynb` — construct the fold-safe QCHAN
+   reference cache.
 
-1. `18_goal2_BAMBOO_acoustic_extraction_v2_1.ipynb` — final Bamboo acoustic-feature extraction.
-2. `19_goal2_BAMBOO_acoustic_representation_freeze_v2_1.ipynb` — frozen acoustic representation A.
-3. `20_goal2_inference_consequence_PRIMARY_v1_1_with2000BS.ipynb` — final primary Goal-2 run with 2,000 bootstrap replicates.
-4. `21_goal2_COMPLETION_sensitivities_and_seal_v1_0_1.ipynb` — authoritative completion/sensitivity layer, including fold-local residualizer tuning and final corrected outputs.
-5. `22_goal2_final_figures.ipynb` — final publication figures and Goal-2 DONE seal.
+### Goal 1 — information availability in Q
 
-The un-suffixed or earlier variants are retained for provenance. The final manuscript-facing numerical results are the authoritative files written under `outputs/goal2/goal2_completion_v1_0/final/`.
+1. `10_goal1_primary_analysis_final_v1_1_2000_bootstraps.ipynb` — final primary
+   diagnosis and severity analysis with 2,000 participant bootstraps.
+2. `goal1_diagnosis_permutation_corrected_v1_1.py` — corrected participant-level
+   diagnosis permutation procedure; regenerate stratification after permutation.
+3. `10a_goal1_bootstrap_and_figure_recovery.ipynb` — governed recovery and
+   post-processing from saved final out-of-fold predictions, when required.
+4. `10b_goal1_sensitivity_completion_v1_0.ipynb` — prespecified sensitivity
+   analyses and computational completion package.
+5. `10c_goal1_publication_figures_final_v1_2.ipynb` — final publication figures.
+6. `10d_goal1_final_freeze_v1_0.ipynb` — final validation gates and Goal-1 DONE
+   seal.
 
-## Goal 3 — localization and controlled sensitivity
+Historical notebook: `10_goal1_primary_analysis_historical_v1_1.ipynb`. It is
+retained for provenance and is not manuscript authority.
 
-Authoritative/final path:
+### Goal 2 — consequence for acoustic inference
 
-1. `30_goal3_natural_QA_localization_and_experiment_freeze_v1_1.ipynb` — natural Q–A localization and controlled-experiment source freeze.
-2. `31_goal3_signal_only_perturbation_calibration_PREP_v1_0.ipynb` — outcome-blind perturbation candidate-grid preparation.
-3. `32_goal3_signal_only_perturbation_calibration_EXECUTE_v1_1.ipynb` — signal-only calibration execution.
-4. `goal3_stageB_v1_2_targeted_revision.py` and `goal3_stageB_v1_3_targeted_revision.py` — targeted outcome-blind Stage-B revisions leading to the final sealed perturbation manifest.
-5. `33_goal3_controlled_QA_measurement_PREFLIGHT_v1_0_2.ipynb` — Q+A measurement preflight and frozen-A implementation reproduction gate.
-6. `34_goal3_Goal2_model_bundle_bridge_FINAL_v1_0_1.ipynb` — five fold-specific frozen Goal-2 model bundles and exact OOF reproduction.
-7. `35_goal3_controlled_perturbation_PRIMARY_FINAL_v1_1_1.ipynb` — final Stage-E completion patch. The underlying 14,792 waveform checkpoints were generated by the v1.1.0 execution and reused; v1.1.1 fixes the support-summary reduction and adds explicit prediction-unavailability auditing without changing scientific estimands or rerunning waveform measurements.
-8. `36_goal3_FINALIZE_robustness_and_completion_v1_0.ipynb` — robustness completion, including exact frozen HGB reproduction.
-9. `37_goal3_PUBLICATION_figures_v1_0.ipynb` — publication figure package. The approved versions were subsequently promoted to canonical FINAL assets and recorded in the frozen output manifests.
+1. `18_goal2_bamboo_acoustic_feature_extraction_v2_1.ipynb` — outcome-blind
+   Bamboo Passage acoustic-feature extraction.
+2. `19_goal2_bamboo_acoustic_representation_freeze_v2_1.ipynb` — freeze the
+   clinical acoustic representation A.
+3. `20_goal2_primary_inference_final_v1_1_2000_bootstraps.ipynb` — final primary
+   inference analysis with 2,000 participant bootstraps.
+4. `21_goal2_sensitivity_completion_final_v1_0_1.ipynb` — authoritative
+   sensitivity/completion layer, including fold-local residualizer tuning.
+5. `22_goal2_publication_figures_and_freeze_v1_2.ipynb` — publication figures
+   and Goal-2 DONE seal.
 
-The final Goal-3 freeze was written during the post-figure review session and is preserved in the frozen outputs as `GOAL3_FINAL_FREEZE.json` and `DONE.json`. It did not rerun waveform measurements, models, GEE analyses, or bootstrap analyses.
+Historical notebooks:
 
-See `../docs/ANALYSIS_LINEAGE.md` for supersession details and `../docs/FROZEN_OUTPUT_AUDIT.md` for checksum-level release evidence.
+- `20_goal2_primary_inference_historical_v1_1.ipynb`
+- `21_goal2_sensitivity_completion_historical_v1_0.ipynb`
+
+They remain development provenance and are not manuscript authority. Final
+manuscript-facing results are under
+`outputs/goal2/goal2_completion_v1_0/final/` in the governed output package.
+
+### Goal 3 — localization and controlled sensitivity
+
+1. `30_goal3_stage_a_natural_qa_localization_and_freeze_v1_1.ipynb` — localize
+   natural Q–A coupling and freeze controlled-experiment sources.
+2. `31_goal3_stage_b_perturbation_calibration_prepare_v1_0.ipynb` — prepare the
+   outcome-blind signal-only perturbation candidate grid.
+3. `32_goal3_stage_b_perturbation_calibration_execute_v1_1.ipynb` — execute
+   signal-only calibration.
+4. Run `goal3_stageB_v1_2_targeted_revision.py`, then
+   `goal3_stageB_v1_3_targeted_revision.py` — targeted outcome-blind revisions
+   that lead to the sealed perturbation manifest.
+5. `33_goal3_stage_c_qa_measurement_preflight_v1_0_2.ipynb` — validate Q+A
+   measurement and reproduce the frozen-A implementation before the full run.
+6. `34_goal3_stage_d_goal2_model_bundle_bridge_final_v1_0_1.ipynb` — create five
+   fold-specific frozen Goal-2 bundles and verify exact out-of-fold reproduction.
+7. `35_goal3_stage_e_controlled_perturbation_final_v1_1_1.ipynb` — authoritative
+   Stage-E completion. It reuses all 14,792 waveform checkpoints from v1.1.0,
+   corrects the support-summary reduction, and records prediction-unavailability
+   audits without changing estimands or rerunning waveform measurements.
+8. `36_goal3_stage_f_robustness_and_completion_v1_0.ipynb` — complete robustness
+   analyses, including exact frozen HGB reproduction.
+9. `37_goal3_stage_f_publication_figures_v1_0.ipynb` — create the publication
+   figure package for manual approval and final sealing.
+
+Historical notebooks:
+
+- `33_goal3_stage_gate_audit_historical.ipynb` — an early gate-presence audit;
+  it is not part of the authoritative execution path.
+- `35_goal3_stage_e_controlled_perturbation_historical_v1_1_0.ipynb` — the heavy
+  Stage-E execution that created the retained waveform checkpoints; superseded
+  for release provenance by v1.1.1.
+
+The final Goal-3 freeze is preserved in the governed outputs as
+`GOAL3_FINAL_FREEZE.json` and `DONE.json`. Figure finalization did not rerun
+waveform measurements, models, GEE analyses, or bootstrap analyses.
+
+## Before running anything
+
+1. Read [`../docs/ANALYSIS_LINEAGE.md`](../docs/ANALYSIS_LINEAGE.md).
+2. Confirm access to the governed inputs described in
+   [`../data/README.md`](../data/README.md).
+3. Select the environment described in
+   [`../docs/REPRODUCIBILITY.md`](../docs/REPRODUCIBILITY.md).
+4. Treat existing freeze manifests and outputs as immutable.
+
+For checksum-level release evidence, see
+[`../docs/FROZEN_OUTPUT_AUDIT.md`](../docs/FROZEN_OUTPUT_AUDIT.md).

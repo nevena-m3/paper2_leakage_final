@@ -48,6 +48,8 @@ manifests while explicitly relaxing only the outer-container identity check.
 Do not infer execution order or authority from notebook filenames alone. Follow
 the lineage and supersession decisions in [ANALYSIS_LINEAGE.md](ANALYSIS_LINEAGE.md)
 and the notebook map in [../notebooks/README.md](../notebooks/README.md).
+Legacy notebook names found in frozen records are translated in
+[NOTEBOOK_NAMING.md](NOTEBOOK_NAMING.md).
 
 ## Environment boundary
 
