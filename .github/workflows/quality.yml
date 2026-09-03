@@ -1,0 +1,30 @@
+name: Repository quality
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - name: Install validation dependencies
+        run: python -m pip install --upgrade pip pytest pyyaml
+      - name: Compile Python sources
+        run: python -m compileall -q src tools notebooks
+      - name: Run repository tests
+        run: python -m pytest
+      - name: Check whitespace
+        run: git diff --check

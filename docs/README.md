@@ -8,3 +8,6 @@ Authoritative analysis contract:
 The addendum supersedes the base document where it adds deterministic tie-breaking and other implementation clarifications.
 
 Do not change primary estimands, analysis populations, model ladders, validation rules, or interpretation boundaries from exploratory model results.
+
+For setup, validation levels, and the boundary between public checks and
+governed-data reconstruction, see [`REPRODUCIBILITY.md`](REPRODUCIBILITY.md).

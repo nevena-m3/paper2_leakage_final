@@ -44,6 +44,47 @@ Goal 3 reuses the Paper-1 measurement implementation pinned at commit:
 
 See [`docs/RUNTIME_PROVENANCE.md`](docs/RUNTIME_PROVENANCE.md) for the actual recorded Stage-E execution environment and the documented Python-version compatibility divergence.
 
+## Getting started
+
+Create the general reconstruction environment and run the public, data-free
+validation suite:
+
+```bash
+conda env create -f environment.yml
+conda activate paper2-leakage
+python -m pytest
+```
+
+For the governed frozen output archive, run:
+
+```bash
+python tools/verify_frozen_outputs.py /path/to/outputs.zip
+```
+
+See [`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md) for the three distinct
+validation levels, their prerequisites, and the limits of what each establishes.
+
+## Repository map
+
+| Path | Purpose |
+| --- | --- |
+| `configs/` | Frozen analysis configuration and expected cohort counts |
+| `data/` | Governed-input layout placeholders; no participant data are public |
+| `docs/` | Lineage, runtime provenance, frozen-output audit, and reproduction guide |
+| `notebooks/` | Authoritative analyses plus explicitly retained historical variants |
+| `src/paper2/` | Package namespace for reusable, scientifically validated code |
+| `tests/` | Fast structural and verifier unit tests that require no governed data |
+| `tools/` | Standalone frozen-output verification utility |
+
+## Release integrity
+
+The scientific freeze tag must remain immutable. Cleanup and documentation
+commits after the freeze do not alter notebook logic, model definitions,
+analysis populations, estimands, resampling, perturbation doses, or frozen
+numerical results. GitHub Actions checks Python 3.11 and 3.12 for source
+compilation, notebook JSON integrity, YAML validity, verifier behavior, and
+whitespace errors.
+
 ## Environment
 
 `environment.yml` is the project reconstruction environment, not a bit-for-bit historical lockfile. The exact critical Stage-E package versions recorded in the frozen outputs are listed in `requirements-goal3-stageE-historical-critical.txt`. A supported reconstruction environment for the pinned Paper-1 implementation is provided in `environment-goal3-supported.yml`.
